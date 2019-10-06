@@ -47,7 +47,7 @@
             <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="txtBirthDate" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox prefHeight="26.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="comboBoxDepartment" prefHeight="26.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="lblErrorEmail" textFill="#f20808" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="lblErrorBirthDate" textFill="#f20808" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="lblErrorBaseSalary" textFill="#f20808" GridPane.columnIndex="2" GridPane.rowIndex="4" />
