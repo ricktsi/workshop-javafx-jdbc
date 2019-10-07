@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -130,6 +132,28 @@ public class SellerFormController implements Initializable {
 		
 		obj.setName(txtName.getText());
 		
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			exception.addError("email", "Field can't be empty");
+		}
+		
+		obj.setEmail(txtEmail.getText());
+		
+		if (txtBirthDate.getValue() == null) {
+			exception.addError("birthDate", "Field can't be empty");
+		}
+		else {
+			Instant instant = Instant.from(txtBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthDate(Date.from(instant));
+		}
+
+		if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+			exception.addError("baseSalary", "Field can't be empty");
+		}
+		
+		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+		
+		obj.setDepartment(comboBoxDepartment.getValue());
+		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -149,7 +173,6 @@ public class SellerFormController implements Initializable {
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldMaxLength(txtName, 70);
-		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldDouble(txtBaseSalary);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
 		Utils.formatDatePicker(txtBirthDate, "dd/MM/yyyy");
@@ -186,9 +209,10 @@ public class SellerFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if (fields.contains("name")) {
-			lblErrorName.setText(errors.get("name"));
-		}
+		lblErrorName.setText((fields.contains("name") ? errors.get("name") : ""));
+		lblErrorEmail.setText((fields.contains("email") ? errors.get("email") : ""));
+		lblErrorBirthDate.setText((fields.contains("birthDate") ? errors.get("birthDate") : ""));
+		lblErrorBaseSalary.setText((fields.contains("baseSalary") ? errors.get("baseSalary") : ""));
 	}
 	
 	public void loadAssociatedObjects() {
